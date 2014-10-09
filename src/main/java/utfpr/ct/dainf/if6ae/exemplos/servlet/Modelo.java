@@ -37,22 +37,30 @@ public class Modelo extends HttpServlet {
         try {
             out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
                     + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-            out.println("<html>");
+            
+            out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
             out.println("<head>");
-            out.println("<title>Modelo de Servlet</title>");            
+            out.println("<title>Teste de Servlet</title>");   
+            out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Modelo de Servlet em " + request.getContextPath() + "</h1>");
             out.println("<form action='modelo' method='post'>");
-            out.println("Nome: <input type='text' name='nome'/><br/>");
-            out.println("<input type='submit' value='Enviar'/><br/>");
+            out.println("Código: <input type=\"text\" name=\"codigo\"/><br/>");
+            out.println("Nome: <input type=\"text\" name=\"nome\"/><br/>");
+            out.println("<input type=\"submit\" value=\"Enviar\"/>");
             out.println("</form>");
+            
             String nome = request.getParameter("nome");
+            String codigo = request.getParameter("codigo");
             if  (request.getMethod().equalsIgnoreCase("post")) {
                 if (nome == null || nome.trim().isEmpty()) {
                     out.println("<h2 style='color: red'>Informe o nome!</h2>");
-                } else {
-                    out.println("<h2>Olá, " + nome + "</h2>");
+                } else if (codigo == null || codigo.trim().isEmpty()) {
+                    //out.println("<h2>Olá, " + nome + "</h2>");
+                    out.println("<h2 style='color: red'>Informe o codigo!</h2>");
+                }
+                else {
+                    out.println("<h2>O usuário " + nome + " tem código " + codigo + "</h2>");
                 }
             }
             out.println("</body>");
