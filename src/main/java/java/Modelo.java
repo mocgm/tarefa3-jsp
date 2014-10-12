@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package utfpr.ct.dainf.if6ae.exemplos.servlet;
+package java;
 
 import java.io.IOException;
 import java.io.PrintWriter;
