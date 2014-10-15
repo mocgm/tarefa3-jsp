@@ -2,11 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Meu primeiro servlet</title>
-    </head>
-    <body>
-        <h1>Olá, mundo!</h1>
-    </body>
+    <head>        
+        <title>Redirecionando...</title>
+        <meta http-equiv="refresh" content="0;URL=http://localhost:8084/servlet-simples-2/modelo">
+    </head>    
 </html>

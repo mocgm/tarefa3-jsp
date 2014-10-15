@@ -41,21 +41,29 @@ public class Processa extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
-                    + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-            
-            out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-            out.println("<head>");
-            out.println("<title>Processa login</title>");   
-            out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-            out.println("</head>");
-            out.println("<body>");
-                        
             String login = request.getParameter("login");
             String senha = request.getParameter("senha");
             String perfil = request.getParameter("perfil");
             String date = response.getHeader("Date");
             
+            out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
+                    + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+            
+            out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+            out.println("<head>");
+            out.println("<title>Processa login</title>");               
+            if (!login.equals(senha)) {
+                out.println("<meta http-equiv=\"refresh\" content=\"0;URL=http://localhost:8084/servlet-simples-2/errologin.html\"");
+                out.println("</head>");
+            }             
+            else 
+            {
+                out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+                out.println("<body>");
+                out.println("<h2 style='color: black'>" + perfil + ", requisição submetida às " + date +"</h2>");            
+                out.println("</body>");
+            }
+                                                                        
             /*System.out.println("HEADERS");
             Collection<String> col = response.getHeaderNames();
             
@@ -66,13 +74,8 @@ public class Processa extends HttpServlet {
             {
                 String header = (String)req.nextElement();
                 System.out.println(header + ": " + request.getHeader(header));
-            }
-            
-            if (login.equals(senha)) {
-                out.println("<h2 style='color: black'>" + perfil + ", requisição submetida às " + date +"</h2>");
-            } */
-            
-            out.println("</body>");
+            }*/
+                        
             out.println("</html>");
         } finally {            
             out.close();
