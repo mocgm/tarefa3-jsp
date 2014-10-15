@@ -2,10 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
+package javaservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.TimeZone;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  * IF6AE Desenvolvimento de Aplicaçoões Web
  * @author Wilson Horstmeyer Bogado <wilson@utfpr.edu.br>
  */
-@WebServlet(name = "Modelo", urlPatterns = {"/modelo", "/xyz"})
-public class Modelo extends HttpServlet {
+@WebServlet(name = "Processa", urlPatterns = {"/processa"})
+public class Processa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -40,29 +46,32 @@ public class Modelo extends HttpServlet {
             
             out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
             out.println("<head>");
-            out.println("<title>Teste de Servlet</title>");   
+            out.println("<title>Processa login</title>");   
             out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("<form action='modelo' method='post'>");
-            out.println("Código: <input type=\"text\" name=\"codigo\"/><br/>");
-            out.println("Nome: <input type=\"text\" name=\"nome\"/><br/>");
-            out.println("<input type=\"submit\" value=\"Enviar\"/>");
-            out.println("</form>");
+                        
+            String login = request.getParameter("login");
+            String senha = request.getParameter("senha");
+            String perfil = request.getParameter("perfil");
+            String date = response.getHeader("Date");
             
-            String nome = request.getParameter("nome");
-            String codigo = request.getParameter("codigo");
-            if  (request.getMethod().equalsIgnoreCase("post")) {
-                if (nome == null || nome.trim().isEmpty()) {
-                    out.println("<h2 style='color: red'>Informe o nome!</h2>");
-                } else if (codigo == null || codigo.trim().isEmpty()) {
-                    //out.println("<h2>Olá, " + nome + "</h2>");
-                    out.println("<h2 style='color: red'>Informe o codigo!</h2>");
-                }
-                else {
-                    out.println("<h2>O usuário " + nome + " tem código " + codigo + "</h2>");
-                }
+            /*System.out.println("HEADERS");
+            Collection<String> col = response.getHeaderNames();
+            
+            System.out.println("Response has " + col.size() + " headers");
+            Enumeration req = request.getHeaderNames();
+            
+            while (req.hasMoreElements())
+            {
+                String header = (String)req.nextElement();
+                System.out.println(header + ": " + request.getHeader(header));
             }
+            
+            if (login.equals(senha)) {
+                out.println("<h2 style='color: black'>" + perfil + ", requisição submetida às " + date +"</h2>");
+            } */
+            
             out.println("</body>");
             out.println("</html>");
         } finally {            
@@ -83,7 +92,9 @@ public class Modelo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        response.addHeader("Allow", "Post");
     }
 
     /**
@@ -97,8 +108,13 @@ public class Modelo extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {        
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String date = dateFormat.format(calendar.getTime());
+        response.addHeader("Date", date);
+        processRequest(request, response);        
     }
 
     /**
