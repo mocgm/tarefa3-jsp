@@ -19,9 +19,9 @@
             
             if (login.equals(senha)) 
             {
-                response.sendRedirect("http://localhost:8084/servlet-simples-2/mensagem.jsp?perfil="+perfil);
-            }
-            else response.sendRedirect("http://localhost:8084/servlet-simples-2/errologin.html");                        
+                response.sendRedirect("mensagem.jsp?perfil="+perfil);
+            }                                    
+            else response.sendRedirect("errologin.html");                        
         %>        
     </body>
 </html>
